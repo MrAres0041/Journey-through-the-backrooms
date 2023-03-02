@@ -293,14 +293,20 @@ screen navigation():
     vbox:
         style_prefix "navigation"
 
-        xalign 0.515
-        yalign 0.73
+        if main_menu:
+            xalign 0.515
+            yalign 0.73
+        else:
+            xoffset 45
+            yoffset 218
 
         spacing gui.navigation_spacing
 
         if main_menu:
 
             textbutton _("Start") action Start()
+
+            #textbutton _("About") action ShowMenu("about")
 
         else:
 
@@ -310,17 +316,16 @@ screen navigation():
 
         textbutton _("Load") action ShowMenu("load")
 
-        textbutton _("Preferences") action ShowMenu("preferences")
-
         if _in_replay:
 
             textbutton _("End Replay") action EndReplay(confirm=True)
 
         elif not main_menu:
 
+            textbutton _("Preferences") action ShowMenu("preferences")
+
             textbutton _("Main Menu") action MainMenu()
 
-        textbutton _("About") action ShowMenu("about")
 
         if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
 
@@ -499,10 +504,8 @@ style return_button is navigation_button
 style return_button_text is navigation_button_text
 
 style game_menu_outer_frame:
-    bottom_padding 30
+    bottom_padding 60
     top_padding 120
-
-    background "gui/overlay/game_menu.png"
 
 style game_menu_navigation_frame:
     xsize 280
@@ -529,11 +532,12 @@ style game_menu_label:
 style game_menu_label_text:
     size gui.title_text_size
     color gui.accent_color
-    yalign 0.5
+    yalign 1.0
+    xoffset 675
 
 style return_button:
     xpos gui.navigation_xpos
-    yalign 1.0
+    yalign 0.95
     yoffset -30
 
 
@@ -723,6 +727,7 @@ screen preferences():
 
             hbox:
                 box_wrap True
+                xoffset 80
 
                 if renpy.variant("pc") or renpy.variant("web"):
 
@@ -754,6 +759,7 @@ screen preferences():
             hbox:
                 style_prefix "slider"
                 box_wrap True
+                xoffset 80
 
                 vbox:
 
